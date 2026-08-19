@@ -1,0 +1,60 @@
+<section class="stats stats-vertical w-full shadow sm:stats-horizontal sm:mx-5">
+  <div class="stat place-items-center">
+    <div class="stat-title">Nombre</div>
+    <div class="stat-value max-w-full wrap-break-word text-center text-primary">
+      {{ country().name }}
+    </div>
+    <div class="stat-desc">{{ country().region }}</div>
+  </div>
+
+  <div class="stat place-items-center">
+    <div class="stat-title">Sub Region</div>
+    <div class="stat-value max-w-full wrap-break-word text-center">{{ country().subRegion }}</div>
+    <div class="stat-desc">{{ country().region }}</div>
+  </div>
+
+  <div class="stat place-items-center">
+    <div class="stat-title">Población</div>
+    <div class="stat-value max-w-full wrap-break-word text-center">
+      {{ country().population | number }}
+    </div>
+    <div class="stat-desc">En {{ currentYear() }}</div>
+  </div>
+
+  <div class="stat place-items-center">
+    <div class="stat-title">Icono</div>
+    <div class="stat-value">{{ country().flag.icon }}</div>
+    <div class="stat-desc">{{ country().subRegion }}</div>
+  </div>
+</section>
+
+<section class="mt-8 flex justify-center">
+  <div class="hover-3d max-w-full">
+    <!-- content -->
+    <figure class="mx-auto max-w-120 rounded-2xl">
+      <img [src]="country().flag.png" [alt]="country().flag.description" />
+    </figure>
+    <!-- 8 empty divs needed for the 3D effect -->
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+  </div>
+</section>
+<!-- <section class="diff mx-auto aspect-video w-full max-w-3xl">
+  <div class="diff-item-1">
+
+  </div>
+  <div class="diff-item-2">
+    <img
+      class="blur brightness-75"
+      [src]="country().flag.png"
+      [alt]="country().flag.description"
+    />
+  </div>
+  <div class="diff-resizer"></div>
+</section> -->

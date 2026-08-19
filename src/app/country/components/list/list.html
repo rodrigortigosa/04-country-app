@@ -1,0 +1,74 @@
+<section class="mt-5">
+  <table class="table table-md mt-2 w-full">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Icono</th>
+        <th>Bandera</th>
+        <th>Nombre</th>
+        <th>Capital</th>
+        <th>Población</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (country of countries(); track country.alpha2Code; let index = $index) {
+        <tr>
+          <td>{{ index + 1 }}</td>
+          <td>{{ country.flag.icon }}</td>
+          <td>
+            <img [src]="country.flag.png" [alt]="country.flag.description" class="w-10" />
+          </td>
+          <td>{{ country.name }}</td>
+          <td>
+            @if (country.capitalNames.length > 0) {
+              @for (capital of country.capitalNames; track capital; let index = $index) {
+                @if (index !== country.capitalNames.length - 1) {
+                  {{ capital + ',' }}
+                } @else {
+                  {{ capital }}
+                }
+              }
+            } @else {
+              "N/A"
+            }
+          </td>
+          <td>
+            <span class="badge badge-secondary">
+              {{ country.population | number }}
+            </span>
+          </td>
+          <td>
+            <a
+              [routerLink]="['/country/by', country.alpha2Code]"
+              class="link-primary cursor-pointer"
+              >Más información</a
+            >
+          </td>
+        </tr>
+      }
+
+      @if (errorMessage()) {
+        <tr>
+          <td colspan="8" class="text-center">{{ errorMessage() }}</td>
+        </tr>
+      }
+
+      @if (isEmpty() && !isLoading() && !errorMessage()) {
+        <tr>
+          <td colspan="8" class="text-center">No se encontraron resultados.</td>
+        </tr>
+      }
+
+      @if (isLoading()) {
+        <tr>
+          <td colspan="8">
+            <div class="flex justify-center text-center">
+              <span class="loading loading-spinner loading-lg mt-10"></span>
+            </div>
+          </td>
+        </tr>
+      }
+    </tbody>
+  </table>
+</section>

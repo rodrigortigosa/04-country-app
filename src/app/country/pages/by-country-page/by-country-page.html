@@ -1,0 +1,19 @@
+<!-- con Resources (Angular 19) -->
+<country-search-input placeholder="Buscar por país" (searchValue)="query.set($event)" />
+
+<!-- @if (countryResource.error()) {
+  <h3 class="mt-4">{{ countryResource.error()?.message }}</h3>
+} @else if (countryResource.isLoading()) {
+  <div class="flex justify-center">
+    <span class="loading loading-spinner loading-lg mt-10"></span>
+  </div>
+} @else if (countryResource.hasValue()) {
+  <country-list [countries]="countryResource.value()!" />
+} -->
+
+<country-list
+  [countries]="countries()"
+  [isLoading]="isLoading()"
+  [isEmpty]="isEmpty()"
+  [errorMessage]="errorMessage()"
+/>

@@ -1,0 +1,29 @@
+<!-- <country-search-input placeholder="Buscar por capital" (searchValue)="onSearch($event)" /> -->
+
+<!-- @if (isError()) {
+  <h3>{{ isError() }}</h3>
+} @else {
+  <country-list [countries]="countries()" />
+} -->
+
+<!-- con Resources (Angular 19) -->
+<country-search-input placeholder="Buscar por capital" (searchValue)="query.set($event)" />
+
+<!-- @if (countryResource.error()) {
+  <h3>{{ countryResource.error()?.message }}</h3>
+} @else if (countryResource.isLoading()) {
+  <div class="flex justify-center">
+    <span class="loading loading-spinner loading-lg mt-10"></span>
+  </div>
+} @else if (countryResource.hasValue()) {
+  <country-list [countries]="countryResource.value()!" />
+} -->
+
+<country-list
+  [countries]="countryResource.hasValue() ? countryResource.value() : []"
+  [isLoading]="countryResource.isLoading()"
+  [isEmpty]="
+    query().trim().length > 0 && countryResource.hasValue() && countryResource.value().length === 0
+  "
+  [errorMessage]="countryResource.error()?.message"
+/>
