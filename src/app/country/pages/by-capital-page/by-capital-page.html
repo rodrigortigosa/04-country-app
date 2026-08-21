@@ -7,7 +7,12 @@
 } -->
 
 <!-- con Resources (Angular 19) -->
-<country-search-input placeholder="Buscar por capital" (searchValue)="query.set($event)" />
+<country-search-input
+  placeholder="Buscar por capital"
+  (searchValue)="query.set($event)"
+  [debounceTime]="500"
+  [initialValue]="query()"
+/>
 
 <!-- @if (countryResource.error()) {
   <h3>{{ countryResource.error()?.message }}</h3>

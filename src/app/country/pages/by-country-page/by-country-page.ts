@@ -1,9 +1,10 @@
-import { Component, computed, inject, signal } from '@angular/core';
+import { Component, computed, inject, linkedSignal, signal } from '@angular/core';
 import { rxResource } from '@angular/core/rxjs-interop';
 import { SearchInput } from '../../components/search-input/search-input';
 import { List } from '../../components/list/list';
 import { CountryService } from '../../services/country.service';
 import { /* map, */ of } from 'rxjs';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-by-country-page',
@@ -13,12 +14,25 @@ import { /* map, */ of } from 'rxjs';
 export class ByCountryPage {
   countryService = inject(CountryService);
 
-  query = signal('');
+  activatedRoute = inject(ActivatedRoute);
+  router = inject(Router);
+
+  queryParam = this.activatedRoute.snapshot.queryParamMap.get('query') ?? '';
+  query = linkedSignal(() => this.queryParam);
 
   countryResource = rxResource({
     params: () => ({ query: this.query() }),
     stream: ({ params }) => {
-      if (!params.query || params.query.trim() === '') return of([]);
+      if (!params.query || params.query.trim() === '') {
+        this.router.navigate(['/country/by-country']);
+        return of([]);
+      }
+
+      this.router.navigate(['/country/by-country'], {
+        queryParams: {
+          query: params.query,
+        },
+      });
 
       /* return this.countryService.searchByCountry(params.query).pipe(
         map((result) => {

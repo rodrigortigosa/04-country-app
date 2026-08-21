@@ -1,5 +1,9 @@
 <!-- con Resources (Angular 19) -->
-<country-search-input placeholder="Buscar por país" (searchValue)="query.set($event)" />
+<country-search-input
+  placeholder="Buscar por país"
+  (searchValue)="query.set($event)"
+  [initialValue]="query()"
+/>
 
 <!-- @if (countryResource.error()) {
   <h3 class="mt-4">{{ countryResource.error()?.message }}</h3>
